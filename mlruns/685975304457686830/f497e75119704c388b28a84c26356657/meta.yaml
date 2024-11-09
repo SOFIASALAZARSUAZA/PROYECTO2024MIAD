@@ -1,0 +1,15 @@
+artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/f497e75119704c388b28a84c26356657/artifacts
+end_time: 1731114134601
+entry_point_name: ''
+experiment_id: '685975304457686830'
+lifecycle_stage: active
+run_id: f497e75119704c388b28a84c26356657
+run_name: thundering-colt-762
+run_uuid: f497e75119704c388b28a84c26356657
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731114130158
+status: 3
+tags: []
+user_id: ubuntu
