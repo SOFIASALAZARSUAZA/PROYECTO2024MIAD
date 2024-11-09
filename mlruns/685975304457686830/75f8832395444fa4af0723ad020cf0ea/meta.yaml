@@ -1,0 +1,15 @@
+artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/75f8832395444fa4af0723ad020cf0ea/artifacts
+end_time: 1731118208323
+entry_point_name: ''
+experiment_id: '685975304457686830'
+lifecycle_stage: active
+run_id: 75f8832395444fa4af0723ad020cf0ea
+run_name: adorable-trout-382
+run_uuid: 75f8832395444fa4af0723ad020cf0ea
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731118203167
+status: 3
+tags: []
+user_id: ubuntu
