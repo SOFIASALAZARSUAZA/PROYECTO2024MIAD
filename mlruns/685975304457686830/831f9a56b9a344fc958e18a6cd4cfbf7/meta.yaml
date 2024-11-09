@@ -1,0 +1,15 @@
+artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/831f9a56b9a344fc958e18a6cd4cfbf7/artifacts
+end_time: 1731115298705
+entry_point_name: ''
+experiment_id: '685975304457686830'
+lifecycle_stage: active
+run_id: 831f9a56b9a344fc958e18a6cd4cfbf7
+run_name: ambitious-swan-190
+run_uuid: 831f9a56b9a344fc958e18a6cd4cfbf7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731115294443
+status: 3
+tags: []
+user_id: ubuntu
