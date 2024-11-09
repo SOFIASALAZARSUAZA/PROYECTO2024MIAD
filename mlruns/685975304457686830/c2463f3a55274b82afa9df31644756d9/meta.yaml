@@ -1,8 +1,9 @@
 artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/c2463f3a55274b82afa9df31644756d9/artifacts
+deleted_time: 1731121300195
 end_time: 1731118540810
 entry_point_name: ''
 experiment_id: '685975304457686830'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: c2463f3a55274b82afa9df31644756d9
 run_name: unequaled-sow-143
 run_uuid: c2463f3a55274b82afa9df31644756d9

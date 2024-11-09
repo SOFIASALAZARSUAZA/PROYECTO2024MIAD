@@ -1,8 +1,9 @@
 artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/e1d9c721fd3749068e2993ecdae62b6e/artifacts
+deleted_time: 1731121300455
 end_time: 1731115069415
 entry_point_name: ''
 experiment_id: '685975304457686830'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: e1d9c721fd3749068e2993ecdae62b6e
 run_name: trusting-ram-471
 run_uuid: e1d9c721fd3749068e2993ecdae62b6e

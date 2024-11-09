@@ -1,8 +1,9 @@
 artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/1c7dc8133ccf465a8702c74998d23fbc/artifacts
+deleted_time: 1731121300204
 end_time: 1731115518113
 entry_point_name: ''
 experiment_id: '685975304457686830'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 1c7dc8133ccf465a8702c74998d23fbc
 run_name: salty-fox-60
 run_uuid: 1c7dc8133ccf465a8702c74998d23fbc

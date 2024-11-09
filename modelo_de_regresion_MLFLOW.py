@@ -115,10 +115,10 @@ y_cluster_1 = y[clust_labels == 1]
 experiment = mlflow.set_experiment("Regresion-DosisOptima")
 
 with mlflow.start_run(experiment_id=experiment.experiment_id):
-    n_estimators_0=500
-    n_estimators_1=500
-    max_depth_0=48
-    max_depth_1=48
+    n_estimators_0=10
+    n_estimators_1=9
+    max_depth_0=5
+    max_depth_1=1
 
     model_0 = RandomForestRegressor(n_estimators=n_estimators_0, max_depth=max_depth_0, random_state=42)
     model_0.fit(X_cluster_0, y_cluster_0)

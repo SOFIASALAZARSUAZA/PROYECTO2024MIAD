@@ -1,0 +1,15 @@
+artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/b396d2e51cb749a081c51dcf8f318a98/artifacts
+end_time: 1731121794241
+entry_point_name: ''
+experiment_id: '685975304457686830'
+lifecycle_stage: active
+run_id: b396d2e51cb749a081c51dcf8f318a98
+run_name: beautiful-colt-202
+run_uuid: b396d2e51cb749a081c51dcf8f318a98
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731121787229
+status: 3
+tags: []
+user_id: ubuntu

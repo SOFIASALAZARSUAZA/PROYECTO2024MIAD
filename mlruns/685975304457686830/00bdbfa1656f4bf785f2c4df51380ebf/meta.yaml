@@ -1,8 +1,9 @@
 artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/00bdbfa1656f4bf785f2c4df51380ebf/artifacts
+deleted_time: 1731121300457
 end_time: 1731038269232
 entry_point_name: ''
 experiment_id: '685975304457686830'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 00bdbfa1656f4bf785f2c4df51380ebf
 run_name: silent-perch-324
 run_uuid: 00bdbfa1656f4bf785f2c4df51380ebf

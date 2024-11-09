@@ -1,8 +1,9 @@
 artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/563febc57e3c42f384e31c7646c84c04/artifacts
+deleted_time: 1731121300451
 end_time: 1731114982592
 entry_point_name: ''
 experiment_id: '685975304457686830'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 563febc57e3c42f384e31c7646c84c04
 run_name: languid-seal-976
 run_uuid: 563febc57e3c42f384e31c7646c84c04

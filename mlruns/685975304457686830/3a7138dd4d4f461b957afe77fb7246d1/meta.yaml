@@ -1,8 +1,9 @@
 artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/3a7138dd4d4f461b957afe77fb7246d1/artifacts
+deleted_time: 1731121300203
 end_time: 1731118543707
 entry_point_name: ''
 experiment_id: '685975304457686830'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 3a7138dd4d4f461b957afe77fb7246d1
 run_name: youthful-snake-47
 run_uuid: 3a7138dd4d4f461b957afe77fb7246d1

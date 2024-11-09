@@ -1,0 +1,15 @@
+artifact_uri: file:///home/ubuntu/PROYECTO2024MIAD/mlruns/685975304457686830/788f4d39e9c64c0eb146fdc86c7b75bb/artifacts
+end_time: 1731121956409
+entry_point_name: ''
+experiment_id: '685975304457686830'
+lifecycle_stage: active
+run_id: 788f4d39e9c64c0eb146fdc86c7b75bb
+run_name: thoughtful-steed-98
+run_uuid: 788f4d39e9c64c0eb146fdc86c7b75bb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731121950482
+status: 3
+tags: []
+user_id: ubuntu
