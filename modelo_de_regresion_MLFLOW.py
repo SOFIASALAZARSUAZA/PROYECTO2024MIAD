@@ -80,7 +80,7 @@ y_cluster_1 = y[clust_labels == 1]
 experiment = mlflow.set_experiment("Regresion-DosisOptima")
 
 with mlflow.start_run(experiment_id=experiment.experiment_id):
-    n_estimators_0=115
+    n_estimators_0=230
     n_estimators_1=200
     max_depth_0=30
     max_depth_1=40
