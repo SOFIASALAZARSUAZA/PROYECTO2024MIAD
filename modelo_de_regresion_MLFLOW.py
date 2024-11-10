@@ -57,58 +57,59 @@ df_total.columns = df_total.columns.str.replace(r'[^A-Za-z0-9_]+', '_', regex=Tr
 standard_scaler = StandardScaler()
 scaler = MinMaxScaler()
 df_normalized = df_total.copy()
-df_normalized1 = df_total.copy()
-df_normalized2 = df_total.copy()
-df_normalized3 = df_total.copy()
-df_standardized3 = df_total.copy()
-df_standardized_global = df_total.copy()
-
-variables_importantes_dos = ['AL_SO_PPM', 'AL_SO_SOLIDO_PPM', 'PAC_PPM', 'FECL3_PPM']
-
-variables_importantes_captación = ['TEMPERATURA_C_BN', 'OXIGENO_DISUELTO_MG_L_O2_BN',
-       'TURBIEDAD_UNT_BN', 'COLOR_UPC_BN', 'CONDUCTIVIDAD_US_CM_BN', 'PH_BN',
-       'MATERIA_ORGANICA_MG_L_BN', 'NITROGENO_AMONIACAL_G_L_BN',
-       'MANGANESOS_MG_L_MN_BN', 'ALCALINIDAD_TOTAL_MG_L_CACO3_BN',
-       'CLORUROS_MG_L_CL_BN', 'DUREZA_TOTAL_MG_L_CACO3_BN',
-       'DUREZA_CALCICA_MG_L_CACO3_BN', 'HIERRO_TOTAL_MG_L_FE_3_BN',
-       'ALUMINIO_RESIDUAL_MG_L_AL_BN', 'POTENCIAL_REDOX_MV_BN',
-       'TEMPERATURA_C_BN', 'NITRITOS_MG_L_NO2_BN', 'FOSFATOS_MG_L_BN',
-       'NITRATOS_MG_L_NO3_BN', 'SULFATOS_MG_L_SO4_BN', 'COT_MG_L_BN']
-
-
-variables_importantes_cruda = ['TEMPERATURA_C_CRU', 'OXIGENO_DISUELTO_MG_L_O2_CRU',
-       'TURBIEDAD_UNT_CRU', 'COLOR_UPC_CRU', 'CONDUCTIVIDAD_US_CM_CRU',
-       'PH_CRU', 'MATERIA_ORGANICA_MG_L_CRU', 'NITROGENO_AMONIACAL_G_L_CRU',
-       'MANGANESOS_MG_L_MN_CRU', 'ALCALINIDAD_TOTAL_MG_L_CACO3_CRU',
-       'CLORUROS_MG_L_CL_CRU', 'DUREZA_TOTAL_MG_L_CACO3_CRU',
-       'DUREZA_CALCICA_MG_L_CACO3_CRU', 'HIERRO_TOTAL_MG_L_FE_3_CRU',
-       'ALUMINIO_RESIDUAL_MG_L_AL_CRU', 'POTENCIAL_REDOX_MV_CRU',
-       'NITRITOS_MG_L_NO2_CRU', 'NITRATOS_MG_L_NO3_CRU', 'FOSFATOS_MG_L_CRU',
-       'SULFATOS_MG_L_SO4_CRU', 'COT_MG_L_CRU', 'SOLIDOS_SUSPENDIDOS_MG_L_CRU']
-
-variables_importantes_mez = ['OXIGENO_DISUELTO_MG_L_O2_MEZ', 'TEMPERATURA_C_MEZ',
-       'PH_MEZ', 'CLORO_LIBRE_MG_L_CL2_MEZ', 'CLORO_COMBINADO_MG_L_CL2_MEZ',
-       'CLORO_TOTAL_MG_L_CL2_MEZ']
-
-df_normalized[variables_importantes_captación] = standard_scaler.fit_transform(df_total[variables_importantes_captación])
-df_normalized1[variables_importantes_cruda] = standard_scaler.fit_transform(df_total[variables_importantes_cruda])
-df_normalized2[variables_importantes_mez] = standard_scaler.fit_transform(df_total[variables_importantes_mez])
-df_normalized3[variables_importantes_dos] = standard_scaler.fit_transform(df_total[variables_importantes_dos])
-
-todas_las_variables = variables_importantes_captación + variables_importantes_cruda + variables_importantes_mez 
-df_standardized3[variables_importantes_dos] = standard_scaler.fit_transform(df_total[variables_importantes_dos])
-df_standardized_global[todas_las_variables] = standard_scaler.fit_transform(df_total[todas_las_variables])
-df_standardized3['DOSIS_TOTAL'] = (
-    df_standardized3['PAC_PPM'] + df_standardized3['AL_SO_PPM'] + 
-    df_standardized3['AL_SO_SOLIDO_PPM'] + df_standardized3['FECL3_PPM']
-)
-
-X = df_standardized_global[todas_las_variables]
-y = df_standardized3['DOSIS_TOTAL']
 
 
 #---------------------------------------------------------------
-# Clustering con K-Means 
+# Selección de variables importantes sin duplicados
+#---------------------------------------------------------------
+
+variables_importantes_dos = ['AL_SO_PPM', 'AL_SO_SOLIDO_PPM', 'PAC_PPM', 'FECL3_PPM']
+
+variables_importantes_captación = list(set([
+    'TEMPERATURA_C_BN', 'OXIGENO_DISUELTO_MG_L_O2_BN', 'TURBIEDAD_UNT_BN',
+    'COLOR_UPC_BN', 'CONDUCTIVIDAD_US_CM_BN', 'PH_BN', 'MATERIA_ORGANICA_MG_L_BN',
+    'NITROGENO_AMONIACAL_G_L_BN', 'MANGANESOS_MG_L_MN_BN', 'ALCALINIDAD_TOTAL_MG_L_CACO3_BN',
+    'CLORUROS_MG_L_CL_BN', 'DUREZA_TOTAL_MG_L_CACO3_BN', 'DUREZA_CALCICA_MG_L_CACO3_BN',
+    'HIERRO_TOTAL_MG_L_FE_3_BN', 'ALUMINIO_RESIDUAL_MG_L_AL_BN', 'POTENCIAL_REDOX_MV_BN',
+    'NITRITOS_MG_L_NO2_BN', 'FOSFATOS_MG_L_BN', 'NITRATOS_MG_L_NO3_BN', 'SULFATOS_MG_L_SO4_BN', 'COT_MG_L_BN'
+]))
+
+variables_importantes_cruda = list(set([
+    'TEMPERATURA_C_CRU', 'OXIGENO_DISUELTO_MG_L_O2_CRU', 'TURBIEDAD_UNT_CRU', 
+    'COLOR_UPC_CRU', 'CONDUCTIVIDAD_US_CM_CRU', 'PH_CRU', 'MATERIA_ORGANICA_MG_L_CRU',
+    'NITROGENO_AMONIACAL_G_L_CRU', 'MANGANESOS_MG_L_MN_CRU', 'ALCALINIDAD_TOTAL_MG_L_CACO3_CRU',
+    'CLORUROS_MG_L_CL_CRU', 'DUREZA_TOTAL_MG_L_CACO3_CRU', 'DUREZA_CALCICA_MG_L_CACO3_CRU', 
+    'HIERRO_TOTAL_MG_L_FE_3_CRU', 'ALUMINIO_RESIDUAL_MG_L_AL_CRU', 'POTENCIAL_REDOX_MV_CRU',
+    'NITRITOS_MG_L_NO2_CRU', 'NITRATOS_MG_L_NO3_CRU', 'FOSFATOS_MG_L_CRU', 'SULFATOS_MG_L_SO4_CRU', 
+    'COT_MG_L_CRU', 'SOLIDOS_SUSPENDIDOS_MG_L_CRU'
+]))
+
+variables_importantes_mez = list(set([
+    'OXIGENO_DISUELTO_MG_L_O2_MEZ', 'TEMPERATURA_C_MEZ', 'PH_MEZ', 
+    'CLORO_LIBRE_MG_L_CL2_MEZ', 'CLORO_COMBINADO_MG_L_CL2_MEZ', 'CLORO_TOTAL_MG_L_CL2_MEZ'
+]))
+
+# Crear una lista única de todas las variables
+todas_las_variables = list(set(variables_importantes_captación + variables_importantes_cruda + variables_importantes_mez))
+
+#---------------------------------------------------------------
+# Estandarización de las variables
+#---------------------------------------------------------------
+
+scaler = StandardScaler()
+df_standardized_global = df_total.copy()
+df_standardized_global[todas_las_variables] = scaler.fit_transform(df_total[todas_las_variables])
+
+# Definir X e y después de la estandarización
+X = df_standardized_global[todas_las_variables]
+df_standardized_global['DOSIS_TOTAL'] = (
+    df_standardized_global['PAC_PPM'] + df_standardized_global['AL_SO_PPM'] + 
+    df_standardized_global['AL_SO_SOLIDO_PPM'] + df_standardized_global['FECL3_PPM']
+)
+y = df_standardized_global['DOSIS_TOTAL']
+
+#---------------------------------------------------------------
+# Clustering con K-Means y división de datos en Train-Test-Validation
 #---------------------------------------------------------------
 
 kmeans = KMeans(n_clusters=2, random_state=42)
@@ -116,10 +117,8 @@ clust_labels = kmeans.fit_predict(X)
 
 X_cluster_0 = X[clust_labels == 0]
 y_cluster_0 = y[clust_labels == 0]
-
 X_cluster_1 = X[clust_labels == 1]
 y_cluster_1 = y[clust_labels == 1]
-
 
 #---------------------------------------------------------------
 # División de datos en Test y Train
@@ -144,7 +143,6 @@ X_train_1, X_val_1, y_train_1, y_val_1 = train_test_split(X_train_full_1, y_trai
 #print(f"Tamaño de X_test_1: {X_test_1.shape}")
 
 
-
 #---------------------------------------------------------------
 # Entrenamiento Modelos de Regresión
 #---------------------------------------------------------------
@@ -152,10 +150,10 @@ X_train_1, X_val_1, y_train_1, y_val_1 = train_test_split(X_train_full_1, y_trai
 experiment = mlflow.set_experiment("Regresion-DosisOptima")
 
 with mlflow.start_run(experiment_id=experiment.experiment_id):
-    n_estimators_0=10
-    n_estimators_1=9
-    max_depth_0=5
-    max_depth_1=1
+    n_estimators_0=500
+    n_estimators_1=500
+    max_depth_0=36
+    max_depth_1=36
 
     model_0 = RandomForestRegressor(n_estimators=n_estimators_0, max_depth=max_depth_0, random_state=42)
     # model_0.fit(X_cluster_0, y_cluster_0)
@@ -197,5 +195,4 @@ with mlflow.start_run(experiment_id=experiment.experiment_id):
     print("Modelos de Regresión por Clúster - Métricas registradas en MLflow")
     print(f"Cluster 0 - MSE: {mse_0}, MAE: {mae_0}, R2 Score: {r2_0}")
     print(f"Cluster 1 - MSE: {mse_1}, MAE: {mae_1}, R2 Score: {r2_1}")
-
 
