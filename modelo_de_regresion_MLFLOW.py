@@ -49,6 +49,7 @@ df_total['FECHA'] = pd.to_datetime(df_total['FECHA'], errors='coerce')
 df_total = df_total.loc[:, ~df_total.columns.duplicated()]
 df_total.drop(columns=['MES'], inplace=True)
 df_total.columns = df_total.columns.str.replace(r'[^A-Za-z0-9_]+', '_', regex=True)
+df_total = df_total.loc[:, ~df_total.columns.duplicated()]
 
 #---------------------------------------------------------------
 # Preprocesamiento para normalización y estandarización
