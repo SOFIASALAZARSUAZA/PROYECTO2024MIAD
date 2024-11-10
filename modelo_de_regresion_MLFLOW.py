@@ -4,6 +4,12 @@
 #----------------------------------------------------------
 # VERSIÓN 2.0 CODIGO CON VARIABLES PREDICTORAS
 # SSS
+# 8/11/2024
+#----------------------------------------------------------
+#----------------------------------------------------------
+# VERSIÓN 3.0 CODIGO CON DIVISIÓN DE DATOS EN GRUPO TRAIN-TEST
+# SSS
+# 10/11/2024
 #----------------------------------------------------------
 
 import os
@@ -13,6 +19,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.model_selection import train_test_split
 import mlflow
 import mlflow.sklearn
 
@@ -98,8 +105,10 @@ df_standardized3['DOSIS_TOTAL'] = (
 
 X = df_standardized_global[todas_las_variables]
 y = df_standardized3['DOSIS_TOTAL']
+
+
 #---------------------------------------------------------------
-# Clustering con K-Means y Entrenamiento de modelos
+# Clustering con K-Means 
 #---------------------------------------------------------------
 
 kmeans = KMeans(n_clusters=2, random_state=42)
@@ -112,6 +121,34 @@ X_cluster_1 = X[clust_labels == 1]
 y_cluster_1 = y[clust_labels == 1]
 
 
+#---------------------------------------------------------------
+# División de datos en Test y Train
+#---------------------------------------------------------------
+
+# Para el Cluster 0
+X_train_full_0, X_test_0, y_train_full_0, y_test_0 = train_test_split(X_cluster_0, y_cluster_0, test_size=0.2, random_state=42)
+X_train_0, X_val_0, y_train_0, y_val_0 = train_test_split(X_train_full_0, y_train_full_0, test_size=0.25, random_state=42)
+
+# Para el Cluster 1
+X_train_full_1, X_test_1, y_train_full_1, y_test_1 = train_test_split(X_cluster_1, y_cluster_1, test_size=0.2, random_state=42)
+X_train_1, X_val_1, y_train_1, y_val_1 = train_test_split(X_train_full_1, y_train_full_1, test_size=0.25, random_state=42)
+
+#print("Cluster 0:")
+#print(f"Tamaño de X_train_0: {X_train_0.shape}")
+#print(f"Tamaño de X_val_0: {X_val_0.shape}")
+#print(f"Tamaño de X_test_0: {X_test_0.shape}")
+
+#print("\nCluster 1:")
+#print(f"Tamaño de X_train_1: {X_train_1.shape}")
+#print(f"Tamaño de X_val_1: {X_val_1.shape}")
+#print(f"Tamaño de X_test_1: {X_test_1.shape}")
+
+
+
+#---------------------------------------------------------------
+# Entrenamiento Modelos de Regresión
+#---------------------------------------------------------------
+
 experiment = mlflow.set_experiment("Regresion-DosisOptima")
 
 with mlflow.start_run(experiment_id=experiment.experiment_id):
@@ -121,22 +158,27 @@ with mlflow.start_run(experiment_id=experiment.experiment_id):
     max_depth_1=1
 
     model_0 = RandomForestRegressor(n_estimators=n_estimators_0, max_depth=max_depth_0, random_state=42)
-    model_0.fit(X_cluster_0, y_cluster_0)
+    # model_0.fit(X_cluster_0, y_cluster_0)
+    model_0.fit(X_train_0, y_train_0)
     
     model_1 = RandomForestRegressor(n_estimators=n_estimators_1, max_depth=max_depth_1, random_state=42)
-    model_1.fit(X_cluster_1, y_cluster_1)
+    # model_1.fit(X_cluster_1, y_cluster_1)
+    model_1.fit(X_train_1, y_train_1)
 
 
-    y_pred_0 = model_0.predict(X_cluster_0)
-    y_pred_1 = model_1.predict(X_cluster_1)
+    #y_pred_0 = model_0.predict(X_cluster_0)
+    #y_pred_1 = model_1.predict(X_cluster_1)
 
-    mse_0 = mean_squared_error(y_cluster_0, y_pred_0)
-    mae_0 = mean_absolute_error(y_cluster_0, y_pred_0)
-    r2_0 = r2_score(y_cluster_0, y_pred_0)
+    y_pred_0 = model_0.predict(X_val_0)
+    y_pred_1 = model_1.predict(X_val_1)
 
-    mse_1 = mean_squared_error(y_cluster_1, y_pred_1)
-    mae_1 = mean_absolute_error(y_cluster_1, y_pred_1)
-    r2_1 = r2_score(y_cluster_1, y_pred_1)
+    mse_0 = mean_squared_error(y_val_0, y_pred_0)
+    mae_0 = mean_absolute_error(y_val_0, y_pred_0)
+    r2_0 = r2_score(y_val_0, y_pred_0)
+
+    mse_1 = mean_squared_error(y_val_1, y_pred_1)
+    mae_1 = mean_absolute_error(y_val_1, y_pred_1)
+    r2_1 = r2_score(y_val_1, y_pred_1)
 
     mlflow.log_param("n_estimators_0", n_estimators_0)
     mlflow.log_param("max_depth_0", max_depth_0)  
