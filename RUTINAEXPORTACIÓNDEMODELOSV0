@@ -23,3 +23,12 @@ with open("modelo_kmeans.pkl", "wb") as file:
     pickle.dump(kmeans, file)
 
 print("Modelos guardados exitosamente.")
+# ---------------------------------------------------------------
+# Verificaciones cantidad de variables en el modelo
+# ---------------------------------------------------------------
+# Crear una lista única de todas las variables sin duplicados
+todas_las_variables = list(set(variables_importantes_captación + variables_importantes_cruda + variables_importantes_mez))
+# Si deseas ordenarlas, puedes hacerlo para facilidad de revisión
+todas_las_variables.sort()
+# Confirmar que no hay duplicados y revisar el total de variables seleccionadas
+print(f"Total de variables después de eliminar duplicados: {len(todas_las_variables)}")
