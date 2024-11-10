@@ -88,11 +88,19 @@ y = df_standardized_global['DOSIS_TOTAL']
 # Rango de valores mínimo, máximo y promedio para cada variable
 # ---------------------------------------------------------------
 
+#variable_ranges = {
+#    str(col): {  # Convertir clave a cadena explícitamente
+#       "min": float(df_standardized_global[col].min().item()),
+#        "max": float(df_standardized_global[col].max().item()),
+#        "mean": float(df_standardized_global[col].mean().item())
+#    }
+#    for col in todas_las_variables
+#}
 variable_ranges = {
-    str(col): {  # Convertir clave a cadena explícitamente
-        "min": float(df_standardized_global[col].min().item()),
-        "max": float(df_standardized_global[col].max().item()),
-        "mean": float(df_standardized_global[col].mean().item())
+    str(col): {
+        "min": float(df_standardized_global[col].min()),
+        "max": float(df_standardized_global[col].max()),
+        "mean": float(df_standardized_global[col].mean())
     }
     for col in todas_las_variables
 }
