@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------
+# Rutina Main
+# version 0.0
+# SOFIA SALAZAR SUAZA 
+# 10/11/2024
+# ---------------------------------------------------------------
+# ---------------------------------------------------------------
+# 
+# ---------------------------------------------------------------
+from fastapi import FastAPI, HTTPException, APIRouter, Request
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import pickle
+import numpy as np
+
+# Cargar los modelos
+with open("modelo_kmeans.pkl", "rb") as f:
+    kmeans_model = pickle.load(f)
+with open("modelo_random_forest_cluster_0.pkl", "rb") as f:
+    rf_cluster_0 = pickle.load(f)
+with open("modelo_random_forest_cluster_1.pkl", "rb") as f:
+    rf_cluster_1 = pickle.load(f)
+
+app = FastAPI(title="API Predicción de Dosis Total")
+
+# Configurar CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Modelo de entrada
+class PrediccionEntrada(BaseModel):
+    variables: dict
+
+@app.get("/health")
+def health_check():
+    return {"status": "API running"}
+
+@app.post("/predict")
+def predict(data: PrediccionEntrada):
+    try:
+        # Preparar los datos de entrada
+        input_data = np.array([list(data.variables.values())])
+        
+        # Determinar el clúster
+        cluster = kmeans_model.predict(input_data)[0]
+
+        # Predecir según el clúster
+        if cluster == 0:
+            prediccion = rf_cluster_0.predict(input_data)[0]
+        else:
+            prediccion = rf_cluster_1.predict(input_data)[0]
+
+        return {"cluster": int(cluster), "prediccion": float(prediccion)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
